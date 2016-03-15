@@ -1,15 +1,8 @@
-### IMPORTS
-
 import string
-
-
-### CONSTANTS
 
 # map from numerical coordinates to letters used by SGF
 SGF_POS = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-
-### SGF OBJECTS
 
 class Collection:
     def __init__(self, parser=None):
@@ -128,8 +121,6 @@ class Node:
                 f.write("[%s]" % value)
 
 
-### SGF PARSER
-
 class ParseException(Exception):
     pass
 
@@ -157,8 +148,8 @@ class Parser:
                     self.start_gametree()
                     state = 1
                 else:
-                    state = 0 # ignore everything up to first (
-                    # raise ParseException, (ch, state)
+                    state = 0  # ignore everything up to first (
+                    # raise ParseException(ch, state)
             elif state == 1:
                 if whitespace(ch):
                     state = 1
@@ -166,7 +157,7 @@ class Parser:
                     self.start_node()
                     state = 2
                 else:
-                    raise ParseException, (ch, state)
+                    raise ParseException(ch, state)
             elif state == 2:
                 if whitespace(ch):
                     state = 2
@@ -186,19 +177,19 @@ class Parser:
                     self.end_gametree()
                     state = 4
                 else:
-                    raise ParseException, (ch, state)
+                    raise ParseException(ch, state)
             elif state == 3:
                 if ucletter(ch):
                     prop_ident = prop_ident + ch
                     state = 3
-                elif lcletter(ch): # @@@ currently ignoring lowercase
+                elif lcletter(ch):  # @@@ currently ignoring lowercase
                     state = 3
                 elif ch == "[":
                     self.start_property(prop_ident)
                     prop_value = ""
                     state = 5
                 else:
-                    raise ParseException, (ch, state)
+                    raise ParseException(ch, state)
             elif state == 4:
                 if ch == ")":
                     self.end_gametree()
@@ -209,7 +200,7 @@ class Parser:
                     self.start_gametree()
                     state = 1
                 else:
-                    raise ParseException, (ch, state)
+                    raise ParseException(ch, state)
             elif state == 5:
                 if ch == "\\":
                     state = 6
@@ -247,10 +238,9 @@ class Parser:
                     self.start_gametree()
                     state = 1
                 else:
-                    raise ParseException, (ch, state)
+                    raise ParseException(ch, state)
             else:
-                raise ParseException, (ch, state)
-                pass
+                raise ParseException(ch, state)
 
         if state != 4:
-            raise ParseException, (ch, state)
+            raise ParseException(ch, state)
