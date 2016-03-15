@@ -9,4 +9,4 @@ install:
   - pip install flake8
 script:
   - flake8 .
-  - test.py
+  - ./test.py
