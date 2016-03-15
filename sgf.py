@@ -1,36 +1,3 @@
-### SGF.PY
-
-# module for representing, parsing and writing out SGF files
-#
-# TO PARSE
-# given a file_name
-#     parser = sgf.Parser()
-#     f = file(file_name)
-#     sgf_string = f.read()
-#     f.close()
-#     collection = sgf.Collection(parser)
-#     parser.parse(x)
-# collection now represents the SGF collection
-#
-# TO SAVE
-# given a file_name
-#     f = file(file_name, "w")
-#     collection.output(f)
-#     f.close()
-#
-# THE OBJECTS
-# Collection has children[] each of which is a GameTree
-# GameTree has nodes[] each of which is a Node
-#          and children[] each of which is a GameTree
-# Node has properties[] dictionary with string keys and values
-#      and previous - previous node in SGF
-#          next - next node in SGF
-#          previous_variation - previous variation (if first node in a variation)
-#          next_variation - next variation (if first node in a variation)
-#          first - boolean indicating when first node in a variation
-#          variations[] - list of variations immediately from this node
-
-
 ### IMPORTS
 
 import string
@@ -53,7 +20,7 @@ class Collection:
 
     def setup(self):
         self.parser.start_gametree = self.my_start_gametree
-        
+
     def my_start_gametree(self):
         self.children.append(GameTree(self, self.parser))
 
@@ -61,7 +28,7 @@ class Collection:
         for child in self.children:
             child.output(f)
 
-         
+
 class GameTree:
     def __init__(self, parent, parser=None):
         self.parent = parent
@@ -70,7 +37,7 @@ class GameTree:
             self.setup()
         self.nodes = []
         self.children = []
-        
+
     def setup(self):
         self.parser.start_gametree = self.my_start_gametree
         self.parser.end_gametree = self.my_end_gametree
@@ -95,7 +62,7 @@ class GameTree:
                 if len(self.parent.children) > 1:
                     node.previous_variation = self.parent.children[-2].nodes[0]
                     self.parent.children[-2].nodes[0].next_variation = node
-                
+
         self.nodes.append(node)
 
     def my_start_gametree(self):
@@ -139,13 +106,13 @@ class Node:
         # @@@ check for duplicates
         self.current_property = identifier
         self.current_prop_value = []
-        
+
     def my_add_prop_value(self, value):
         self.current_prop_value.append(value)
-        
+
     def my_end_property(self):
         self.properties[self.current_property] = self.current_prop_value
-        
+
     def my_end_node(self):
         self.parent.setup()
 
