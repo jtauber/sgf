@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
+import glob
 import sgf
 
-parser = sgf.Parser()
-collection = sgf.Collection(parser)
 
-with open("examples/ff4_ex.sgf") as f:
-    parser.parse(f.read())
+for filename in glob.glob("examples/*.sgf"):
+    parser = sgf.Parser()
+    collection = sgf.Collection(parser)
+
+    with open(filename) as f:
+        parser.parse(f.read())
