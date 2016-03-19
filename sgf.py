@@ -68,6 +68,9 @@ class GameTree:
     def my_end_gametree(self):
         self.parent.setup()
 
+    def __iter__(self):
+        return NodeIterator(self)
+
     def output(self, f):
         f.write("(")
         for node in self.nodes:
@@ -123,6 +126,19 @@ class Node:
                 if "]" in value:
                     value = "\\]".join(value.split("]"))
                 f.write("[%s]" % value)
+
+
+class NodeIterator:
+    def __init__(self, game_tree):
+        self.node = game_tree.nodes[0]
+
+    def next(self):
+        if self.node:
+            node = self.node
+            self.node = node.next
+            return node
+        else:
+            raise StopIteration()
 
 
 class ParseException(Exception):
