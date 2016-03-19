@@ -1,5 +1,3 @@
-import string
-
 # map from numerical coordinates to letters used by SGF
 SGF_POS = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -115,9 +113,9 @@ class Node:
             f.write(property)
             for value in self.properties[property]:
                 if "\\" in value:
-                    value = string.join(value.split("\\"), "\\\\")
+                    value = "\\\\".join(value.split("\\"))
                 if "]" in value:
-                    value = string.join(value.split("]"), "\]")
+                    value = "\\]".join(value.split("]"))
                 f.write("[%s]" % value)
 
 
