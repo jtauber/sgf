@@ -4,9 +4,9 @@ import glob
 import sgf
 
 try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+    from StringIO import StringIO  # pragma: no cover
+except ImportError:  # pragma: no cover
+    from io import StringIO  # pragma: no cover
 
 
 for filename in glob.glob("examples/*.sgf"):
