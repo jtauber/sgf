@@ -56,25 +56,43 @@ sgf.parse("(;(;))")  # a gametree after an empty node is allowed
 # errors
 
 try:
-    sgf.parse("()")
+    sgf.parse("()")  # games must have a node
     assert False  # pragma: no cover
 except sgf.ParseException:
     pass
 
 try:
-    sgf.parse("(W[tt])")
+    sgf.parse("(W[tt])")  # a property has to be in a node
     assert False  # pragma: no cover
 except sgf.ParseException:
     pass
 
 try:
-    sgf.parse("(;)W[tt]")
+    sgf.parse("(;)W[tt]")  # a property has to be in a game
     assert False  # pragma: no cover
 except sgf.ParseException:
     pass
 
 try:
-    sgf.parse("(;1)")
+    sgf.parse("(;1)")  # property names can't start with numbers
+    assert False  # pragma: no cover
+except sgf.ParseException:
+    pass
+
+try:
+    sgf.parse("(;A5[])")  # property names can't have numbers at all
+    assert False  # pragma: no cover
+except sgf.ParseException:
+    pass
+
+try:
+    sgf.parse("(;FOO[bar]5)")  # bad character after a property value
+    assert False  # pragma: no cover
+except sgf.ParseException:
+    pass
+
+try:
+    sgf.parse("(;")  # finished mid-gametree
     assert False  # pragma: no cover
 except sgf.ParseException:
     pass

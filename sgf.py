@@ -255,7 +255,8 @@ class Parser:
                 else:
                     raise ParseException(ch, state)
             else:
-                raise ParseException(ch, state)
+                # only a programming error could get here
+                raise Exception(state)  # pragma: no cover
 
         if state != 4:
             raise ParseException(ch, state)
