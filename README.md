@@ -1,5 +1,8 @@
 # sgf
 
+[![Build Status](https://travis-ci.org/jtauber/sgf.svg)](https://travis-ci.org/jtauber/sgf)
+[![Coverage Status](https://coveralls.io/repos/jtauber/sgf/badge.svg?branch=master&service=github)](https://coveralls.io/github/jtauber/sgf?branch=master)
+
 Python implementation of Smart Game Format
 
 After 14 years, I've extracted my old SGF code from PyGo and am in the process
