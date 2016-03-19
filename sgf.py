@@ -136,13 +136,15 @@ class NodeIterator:
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         if self.node:
             node = self.node
             self.node = node.next
             return node
         else:
             raise StopIteration()
+
+    next = __next__  # Python 2
 
 
 class ParseException(Exception):
