@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="sgf",
-    version="0.1",
+    version="0.2",
     description="Python library for reading and writing Smart Game Format",
     license="MIT",
     url="http://github.com/jtauber/sgf",
