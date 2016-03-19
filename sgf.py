@@ -155,9 +155,6 @@ class Parser:
         def ucletter(ch):
             return ch in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-        def lcletter(ch):
-            return ch in "abcdefghijklmnopqrstuvwxyz"
-
         state = 0
 
         for ch in sgf_string:
@@ -201,8 +198,6 @@ class Parser:
             elif state == 3:
                 if ucletter(ch):
                     prop_ident = prop_ident + ch
-                    state = 3
-                elif lcletter(ch):  # @@@ currently ignoring lowercase
                     state = 3
                 elif ch == "[":
                     self.start_property(prop_ident)
