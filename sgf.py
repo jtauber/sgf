@@ -264,3 +264,10 @@ class Parser:
 
         if state != 4:
             raise ParseException(ch, state)
+
+
+def parse(sgf_string):
+    parser = Parser()
+    collection = Collection(parser)
+    parser.parse(sgf_string)
+    return collection
