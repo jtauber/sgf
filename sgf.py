@@ -43,7 +43,7 @@ class GameTree:
             previous = None
         node = Node(self, previous, self.parser)
         if len(self.nodes) == 0:
-            node.first = 1
+            node.first = True
             if self.parent.__class__ == GameTree:
                 if len(previous.variations) > 0:
                     previous.variations[-1].next_variation = node
@@ -82,7 +82,7 @@ class Node:
         self.next = None
         self.previous_variation = None
         self.next_variation = None
-        self.first = 0
+        self.first = False
         self.variations = []
         if previous and not previous.next:
             previous.next = self
