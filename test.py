@@ -2,7 +2,11 @@
 
 import glob
 import sgf
-import StringIO
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 
 for filename in glob.glob("examples/*.sgf"):
@@ -17,12 +21,12 @@ for game in collection:
     for node in game:
         pass
 
-out = StringIO.StringIO()
+out = StringIO()
 collection[0].nodes[1].output(out)
 assert out.getvalue() == ";B[aa]"
 out.close()
 
-out = StringIO.StringIO()
+out = StringIO()
 collection.output(out)
 assert out.getvalue() == example
 out.close()
@@ -31,7 +35,7 @@ example2 = "(;FF[4]GM[1]SZ[19];B[aa];W[bb](;B[cc];W[dd];B[ad];W[bd])" \
     "(;B[hh];W[hg]))"
 
 collection = sgf.parse(example2)
-out = StringIO.StringIO()
+out = StringIO()
 collection.output(out)
 assert out.getvalue() == example2
 out.close()
@@ -39,7 +43,7 @@ out.close()
 example3 = "(;C[foo\\]\\\\])"
 collection = sgf.parse(example3)
 assert collection[0].nodes[0].properties["C"] == ["foo]\\"]
-out = StringIO.StringIO()
+out = StringIO()
 collection.output(out)
 assert out.getvalue() == example3
 out.close()
