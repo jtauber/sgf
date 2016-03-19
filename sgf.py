@@ -15,6 +15,12 @@ class Collection:
     def my_start_gametree(self):
         self.children.append(GameTree(self, self.parser))
 
+    def __getitem__(self, k):
+        return self.children[k]
+
+    def __iter__(self):
+        return iter(self.children)
+
     def output(self, f):
         for child in self.children:
             child.output(f)
