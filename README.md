@@ -12,7 +12,7 @@ of cleaning it up and making it available under an MIT license.
 ## To Install
 
 ```
-pip install sgf==0.3
+pip install sgf==0.4
 ```
 
 
