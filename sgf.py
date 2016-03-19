@@ -129,8 +129,12 @@ class Node:
 
 
 class NodeIterator:
+
     def __init__(self, game_tree):
         self.node = game_tree.nodes[0]
+
+    def __iter__(self):
+        return self
 
     def next(self):
         if self.node:
