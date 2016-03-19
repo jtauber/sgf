@@ -118,9 +118,9 @@ class Node:
 
     def output(self, f):
         f.write(";")
-        for property in self.properties.keys():
-            f.write(property)
-            for value in self.properties[property]:
+        for key, values in sorted(self.properties.items()):
+            f.write(key)
+            for value in values:
                 if "\\" in value:
                     value = "\\\\".join(value.split("\\"))
                 if "]" in value:
