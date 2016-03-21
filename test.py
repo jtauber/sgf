@@ -100,3 +100,30 @@ try:
     assert False  # pragma: no cover
 except sgf.ParseException:
     pass
+
+
+# new features for 0.5
+
+with open("examples/ff4_ex.sgf") as f:
+    ff4_ex = sgf.parse(f.read())
+
+assert len(ff4_ex) == 2
+
+game1 = ff4_ex[0]
+
+assert game1.root.properties["SZ"] == ["19"]
+
+count = 0
+for node in game1.rest:
+    count += 1
+assert count == 13
+
+collection = sgf.parse(example2)
+count = 0
+for node in collection[0].rest:
+    count += 1
+assert count == 6
+
+# test game.rest if only one node
+
+assert sgf.parse("(;)")[0].rest is None

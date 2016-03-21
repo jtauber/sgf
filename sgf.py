@@ -15,6 +15,9 @@ class Collection:
     def my_start_gametree(self):
         self.children.append(GameTree(self, self.parser))
 
+    def __len__(self):
+        return len(self.children)
+
     def __getitem__(self, k):
         return self.children[k]
 
@@ -26,7 +29,7 @@ class Collection:
             child.output(f)
 
 
-class GameTree:
+class GameTree(object):
     def __init__(self, parent, parser=None):
         self.parent = parent
         self.parser = parser
@@ -69,7 +72,22 @@ class GameTree:
         self.parent.setup()
 
     def __iter__(self):
-        return NodeIterator(self)
+        return NodeIterator(self.nodes[0])
+
+    @property
+    def root(self):
+        # @@@ technically for this to be root, self.parent must be a Collection
+        return self.nodes[0]
+
+    @property
+    def rest(self):
+        class _:
+            def __iter__(_):
+                return NodeIterator(self.nodes[0].next)
+        if self.nodes[0].next:
+            return _()
+        else:
+            return None
 
     def output(self, f):
         f.write("(")
@@ -130,8 +148,8 @@ class Node:
 
 class NodeIterator:
 
-    def __init__(self, game_tree):
-        self.node = game_tree.nodes[0]
+    def __init__(self, start_node):
+        self.node = start_node
 
     def __next__(self):
         if self.node:
