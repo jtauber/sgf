@@ -112,3 +112,14 @@ assert len(ff4_ex) == 2
 game1 = ff4_ex[0]
 
 assert game1.root.properties["SZ"] == ["19"]
+
+count = 0
+for node in game1.rest:
+    count += 1
+assert count == 13
+
+collection = sgf.parse(example2)
+count = 0
+for node in collection[0].rest:
+    count += 1
+assert count == 6

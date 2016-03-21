@@ -72,12 +72,22 @@ class GameTree(object):
         self.parent.setup()
 
     def __iter__(self):
-        return NodeIterator(self)
+        return NodeIterator(self.nodes[0])
 
     @property
     def root(self):
         return self.nodes[0]  # technically for this to be root,
                               # self.parent must be a Collection @@@
+
+    @property
+    def rest(self):
+        class _:
+            def __iter__(_):
+                return NodeIterator(self.nodes[0].next)
+        if self.nodes[0].next:
+            return _()
+        else:
+            return None
 
     def output(self, f):
         f.write("(")
@@ -138,8 +148,8 @@ class Node:
 
 class NodeIterator:
 
-    def __init__(self, game_tree):
-        self.node = game_tree.nodes[0]
+    def __init__(self, start_node):
+        self.node = start_node
 
     def __next__(self):
         if self.node:
