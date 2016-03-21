@@ -76,8 +76,8 @@ class GameTree(object):
 
     @property
     def root(self):
-        return self.nodes[0]  # technically for this to be root,
-                              # self.parent must be a Collection @@@
+        # @@@ technically for this to be root, self.parent must be a Collection
+        return self.nodes[0]
 
     @property
     def rest(self):
