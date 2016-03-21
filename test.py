@@ -123,3 +123,7 @@ count = 0
 for node in collection[0].rest:
     count += 1
 assert count == 6
+
+# test game.rest if only one node
+
+assert sgf.parse("(;)")[0].rest is None
