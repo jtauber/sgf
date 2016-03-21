@@ -100,3 +100,11 @@ try:
     assert False  # pragma: no cover
 except sgf.ParseException:
     pass
+
+
+# new features for 0.5
+
+with open("examples/ff4_ex.sgf") as f:
+    ff4_ex = sgf.parse(f.read())
+
+assert len(ff4_ex) == 2
