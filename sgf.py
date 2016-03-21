@@ -29,7 +29,7 @@ class Collection:
             child.output(f)
 
 
-class GameTree:
+class GameTree(object):
     def __init__(self, parent, parser=None):
         self.parent = parent
         self.parser = parser
@@ -73,6 +73,11 @@ class GameTree:
 
     def __iter__(self):
         return NodeIterator(self)
+
+    @property
+    def root(self):
+        return self.nodes[0]  # technically for this to be root,
+                              # self.parent must be a Collection @@@
 
     def output(self, f):
         f.write("(")

@@ -108,3 +108,7 @@ with open("examples/ff4_ex.sgf") as f:
     ff4_ex = sgf.parse(f.read())
 
 assert len(ff4_ex) == 2
+
+game1 = ff4_ex[0]
+
+assert game1.root.properties["SZ"] == ["19"]
