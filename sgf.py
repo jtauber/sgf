@@ -121,7 +121,6 @@ class Node:
         self.parser.end_node = self.my_end_node
 
     def my_start_property(self, identifier):
-        # @@@ check for duplicates
         self.current_property = identifier
         self.current_prop_value = []
 
@@ -129,7 +128,10 @@ class Node:
         self.current_prop_value.append(value)
 
     def my_end_property(self):
-        self.properties[self.current_property] = self.current_prop_value
+        if self.current_property in self.properties:
+            self.properties[self.current_property].extend(self.current_prop_value)
+        else:
+            self.properties[self.current_property] = self.current_prop_value
 
     def my_end_node(self):
         self.parent.setup()
